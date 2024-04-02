@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище AlexM_428_1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Guests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Surname" Type="nvarchar" MaxLength="200" />
+    <Property Name="Patronymic" Type="nvarchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="GuestsNumbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Guest_Id" Type="int" />
+    <Property Name="Number_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Numbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="Number" Type="int" />
+  </EntityType>
+  <Association Name="FK__GuestsNum__Guest__6383C8BA">
+    <End Role="Guests" Type="Self.Guests" Multiplicity="0..1" />
+    <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guests">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GuestsNumbers">
+        <PropertyRef Name="Guest_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GuestsNum__Numbe__6477ECF3">
+    <End Role="Numbers" Type="Self.Numbers" Multiplicity="0..1" />
+    <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Numbers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GuestsNumbers">
+        <PropertyRef Name="Number_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище AlexM_428_1ModelContainer">
+    <EntitySet Name="Guests" EntityType="Self.Guests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GuestsNumbers" EntityType="Self.GuestsNumbers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__GuestsNum__Guest__6383C8BA" Association="Self.FK__GuestsNum__Guest__6383C8BA">
+      <End Role="Guests" EntitySet="Guests" />
+      <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GuestsNum__Numbe__6477ECF3" Association="Self.FK__GuestsNum__Numbe__6477ECF3">
+      <End Role="Numbers" EntitySet="Numbers" />
+      <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

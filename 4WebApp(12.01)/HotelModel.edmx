@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AlexM_428_1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Guests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="200" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="GuestsNumbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Guest_Id" Type="int" />
+          <Property Name="Number_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Numbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Number" Type="int" />
+        </EntityType>
+        <Association Name="FK__GuestsNum__Guest__6383C8BA">
+          <End Role="Guests" Type="Self.Guests" Multiplicity="0..1" />
+          <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GuestsNumbers">
+              <PropertyRef Name="Guest_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GuestsNum__Numbe__6477ECF3">
+          <End Role="Numbers" Type="Self.Numbers" Multiplicity="0..1" />
+          <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Numbers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GuestsNumbers">
+              <PropertyRef Name="Number_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AlexM_428_1ModelContainer">
+          <EntitySet Name="Guests" EntityType="Self.Guests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GuestsNumbers" EntityType="Self.GuestsNumbers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Numbers" EntityType="Self.Numbers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__GuestsNum__Guest__6383C8BA" Association="Self.FK__GuestsNum__Guest__6383C8BA">
+            <End Role="Guests" EntitySet="Guests" />
+            <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GuestsNum__Numbe__6477ECF3" Association="Self.FK__GuestsNum__Numbe__6477ECF3">
+            <End Role="Numbers" EntitySet="Numbers" />
+            <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AlexM_428_1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Guests">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="GuestsNumbers" Relationship="Self.FK__GuestsNum__Guest__6383C8BA" FromRole="Guests" ToRole="GuestsNumbers" />
+        </EntityType>
+        <EntityType Name="GuestsNumbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guest_Id" Type="Int32" />
+          <Property Name="Number_Id" Type="Int32" />
+          <NavigationProperty Name="Guests" Relationship="Self.FK__GuestsNum__Guest__6383C8BA" FromRole="GuestsNumbers" ToRole="Guests" />
+          <NavigationProperty Name="Numbers" Relationship="Self.FK__GuestsNum__Numbe__6477ECF3" FromRole="GuestsNumbers" ToRole="Numbers" />
+        </EntityType>
+        <EntityType Name="Numbers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="Int32" />
+          <NavigationProperty Name="GuestsNumbers" Relationship="Self.FK__GuestsNum__Numbe__6477ECF3" FromRole="Numbers" ToRole="GuestsNumbers" />
+        </EntityType>
+        <Association Name="FK__GuestsNum__Guest__6383C8BA">
+          <End Role="Guests" Type="Self.Guests" Multiplicity="0..1" />
+          <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Guests">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GuestsNumbers">
+              <PropertyRef Name="Guest_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__GuestsNum__Numbe__6477ECF3">
+          <End Role="Numbers" Type="Self.Numbers" Multiplicity="0..1" />
+          <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Numbers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="GuestsNumbers">
+              <PropertyRef Name="Number_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HotelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Guests" EntityType="Self.Guests" />
+          <EntitySet Name="GuestsNumbers" EntityType="Self.GuestsNumbers" />
+          <EntitySet Name="Numbers" EntityType="Self.Numbers" />
+          <AssociationSet Name="FK__GuestsNum__Guest__6383C8BA" Association="Self.FK__GuestsNum__Guest__6383C8BA">
+            <End Role="Guests" EntitySet="Guests" />
+            <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__GuestsNum__Numbe__6477ECF3" Association="Self.FK__GuestsNum__Numbe__6477ECF3">
+            <End Role="Numbers" EntitySet="Numbers" />
+            <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AlexM_428_1ModelContainer" CdmEntityContainer="HotelEntities">
+          <EntitySetMapping Name="Guests">
+            <EntityTypeMapping TypeName="AlexM_428_1Model.Guests">
+              <MappingFragment StoreEntitySet="Guests">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GuestsNumbers">
+            <EntityTypeMapping TypeName="AlexM_428_1Model.GuestsNumbers">
+              <MappingFragment StoreEntitySet="GuestsNumbers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Guest_Id" ColumnName="Guest_Id" />
+                <ScalarProperty Name="Number_Id" ColumnName="Number_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Numbers">
+            <EntityTypeMapping TypeName="AlexM_428_1Model.Numbers">
+              <MappingFragment StoreEntitySet="Numbers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

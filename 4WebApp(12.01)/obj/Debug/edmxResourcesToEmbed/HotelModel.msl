@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище AlexM_428_1ModelContainer" CdmEntityContainer="HotelEntities">
+    <EntitySetMapping Name="Guests">
+      <EntityTypeMapping TypeName="AlexM_428_1Model.Guests">
+        <MappingFragment StoreEntitySet="Guests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GuestsNumbers">
+      <EntityTypeMapping TypeName="AlexM_428_1Model.GuestsNumbers">
+        <MappingFragment StoreEntitySet="GuestsNumbers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Guest_Id" ColumnName="Guest_Id" />
+          <ScalarProperty Name="Number_Id" ColumnName="Number_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Numbers">
+      <EntityTypeMapping TypeName="AlexM_428_1Model.Numbers">
+        <MappingFragment StoreEntitySet="Numbers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

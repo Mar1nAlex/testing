@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AlexM_428_1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Guests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Patronymic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GuestsNumbers" Relationship="Self.FK__GuestsNum__Guest__6383C8BA" FromRole="Guests" ToRole="GuestsNumbers" />
+  </EntityType>
+  <EntityType Name="GuestsNumbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Guest_Id" Type="Int32" />
+    <Property Name="Number_Id" Type="Int32" />
+    <NavigationProperty Name="Guests" Relationship="Self.FK__GuestsNum__Guest__6383C8BA" FromRole="GuestsNumbers" ToRole="Guests" />
+    <NavigationProperty Name="Numbers" Relationship="Self.FK__GuestsNum__Numbe__6477ECF3" FromRole="GuestsNumbers" ToRole="Numbers" />
+  </EntityType>
+  <EntityType Name="Numbers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Number" Type="Int32" />
+    <NavigationProperty Name="GuestsNumbers" Relationship="Self.FK__GuestsNum__Numbe__6477ECF3" FromRole="Numbers" ToRole="GuestsNumbers" />
+  </EntityType>
+  <Association Name="FK__GuestsNum__Guest__6383C8BA">
+    <End Role="Guests" Type="Self.Guests" Multiplicity="0..1" />
+    <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Guests">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GuestsNumbers">
+        <PropertyRef Name="Guest_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GuestsNum__Numbe__6477ECF3">
+    <End Role="Numbers" Type="Self.Numbers" Multiplicity="0..1" />
+    <End Role="GuestsNumbers" Type="Self.GuestsNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Numbers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GuestsNumbers">
+        <PropertyRef Name="Number_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HotelEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Guests" EntityType="Self.Guests" />
+    <EntitySet Name="GuestsNumbers" EntityType="Self.GuestsNumbers" />
+    <EntitySet Name="Numbers" EntityType="Self.Numbers" />
+    <AssociationSet Name="FK__GuestsNum__Guest__6383C8BA" Association="Self.FK__GuestsNum__Guest__6383C8BA">
+      <End Role="Guests" EntitySet="Guests" />
+      <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GuestsNum__Numbe__6477ECF3" Association="Self.FK__GuestsNum__Numbe__6477ECF3">
+      <End Role="Numbers" EntitySet="Numbers" />
+      <End Role="GuestsNumbers" EntitySet="GuestsNumbers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

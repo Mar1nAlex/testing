@@ -1,0 +1,216 @@
+﻿<style>
+
+    table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        border-collapse: collapse;
+        color: #686461;
+    }
+
+    caption {
+        padding: 10px;
+        color: white;
+        background: #8FD4C1;
+        font-size: 18px;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    th {
+        border-bottom: 3px solid #B9B29F;
+        padding: 10px;
+        text-align: left;
+    }
+
+    td {
+        padding: 10px;
+    }
+
+    tr:nth-child(odd) {
+        background: white;
+    }
+
+    tr:nth-child(even) {
+        background: #E8E6D1;
+    }
+
+    .GetWord {
+        padding: 10px 10px;
+        text-align: right;
+    }
+</style>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@model _4WebApp_12._01_.Models.SearchResultLine
+<br />
+<h4>Поиск</h4>
+<input type="text" id="searchName" />
+<br />
+<div id="GetWord">
+    <p> <a href="/Home/GetWord">Get Word</a></p>
+</div>
+<br />
+<div id="outputText">
+
+    <table id="SearchResultTable" border="1">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">HotelNumber</th>
+                <th scope="col">GuestNumber</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.SearchData)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Surname</td>
+                    <td>@item.HotelNumber</td>
+                    <td>@item.GuestNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <p> Добавление и удаление</p>
+    Id Guest: <input type="text" id="id_g" />
+    <br />
+    <button value="del" id="removeGuest">delGuest</button>
+    <br />
+    Name: <input type="text" id="name" />
+    <br />
+    Surname: <input type="text" id="surname" />
+    <br /> <br />
+    <button value="add" id="addGuest">addGuest</button>
+
+    <br />
+    <br />
+</div>
+
+    <script>
+
+    </script>
+
+    <div>
+     
+      
+       
+
+
+    </div>
+
+
+    <br />
+    <a href="/Home/GetWord4">Create a Paragraph with justification</a>
+    <br />
+    <a href="/Home/GetWord5">Create a Paragraph with justification</a>
+
+
+    <script>
+        /// add
+        let baddGuest = document.getElementById("addGuest");
+        baddGuest.addEventListener("click", addGuestFunc);
+
+        function addGuestFunc() {
+            let name = document.getElementById('name').value;
+            let surname = document.getElementById('surname').value;
+          //  alert(name);
+            $.ajax({
+                url: '/Home/AddGuests?name=' + name + '&surname=' + surname,
+                type: 'GET',
+                success: function (data) {
+                    $("#SearchResultTable tbody tr").remove();
+                    for (let i = 0; i < data.length; i++) {
+                        $('#SearchResultTable > tbody:last-child').append('<tr><th scope="row">'
+                            + data[i].Item1 + '</td><td>'
+                            + data[i].Item2 + '</td><td>'
+                            + data[i].Item3
+
+                        );
+                    }
+                }
+            });
+        }
+
+        /// delite
+        let bdelGuest = document.getElementById("removeGuest");
+        bdelGuest.addEventListener("click", DeliteGuestFunc);
+
+        function DeliteGuestFunc() {
+            let id_g = document.getElementById('id_g').value;
+           // let name = document.getElementById('name').value;
+           // let surname = document.getElementById('surname').value;
+            //  alert(name);
+            $.ajax({
+                url: '/Home/RemoveGuest?id=' + id_g,
+                type: 'GET',
+                success: function (data) {
+                    $("#SearchResultTable tbody tr").remove();
+                    for (let i = 0; i < data.length; i++) {
+                        $('#SearchResultTable > tbody:last-child').append('<tr><th scope="row">'
+                            + data[i].Item1 + '</td><td>'
+                            + data[i].Item2 + '</td><td>'
+                            + data[i].Item3
+
+                        );
+                    }
+                }
+            });
+        }
+
+        ///remove
+
+      /*  let bdelGuest = document.getElementById("removeGuest");
+        bdelGuest.addEventListener("click", DeliteGuestFunc1);
+
+        function DeliteGuestFunc1() {
+            let Id = document.getElementById('id_g').value;
+            //  alert(name);
+            $.ajax({
+                url: '/Home/RemoveGuest?Id=' + Id,
+                type: 'GET',
+                success: function (data) {
+                    //$('[data-id="' + Id + '"]').remove();
+                  // $("#SearchResultTable tbody tr").remove();
+                    i = Id;
+                    $('#SearchResultTable > tbody:last-child').remove('<tr><th scope="row">'
+                        + data[i].Item1 + '</td><td>'
+                        + data[i].Item2 + '</td><td>'
+                        + data[i].Item3
+
+                    );
+                }
+            });
+        }
+        */
+     
+
+
+        var inputText = document.getElementById("searchName");
+        function changeOption() {
+            var txt = inputText.value;
+            $.ajax({
+                url: '/Home/Index?pattern=' + txt,
+                type: 'GET',
+                success: function (data) {
+                    $("#SearchResultTable tbody tr").remove();
+                    for (let i = 0; i < data.length; i++) {
+                        $('#SearchResultTable > tbody:last-child').append('<tr><th scope="row">'
+                            + data[i].Name + '</td><td>'
+                            + data[i].Surname + '</td><td>'
+                            + data[i].HotelNumber + '</td><td>'
+                            + data[i].GuestNumber
+                        );
+                    }
+                }
+            });
+        }
+        inputText.addEventListener("input", changeOption);
+
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
